@@ -1,6 +1,6 @@
 version '1.0.0-SNAPSHOT'
 
-def currentJvm = org.gradle.internal.jvm.Jvm.current()
+String currentJvm = org.gradle.internal.jvm.Jvm.current()
 println currentJvm
 
 apply plugin: 'java'
@@ -31,3 +31,7 @@ mainClassName = "Hello"
 applicationDefaultJvmArgs =  [
         "-agentpath:${native_agent}",
 ]
+
+if (currentJvm.contains("OpenJ9")) {
+    applicationDefaultJvmArgs += "-Xjit:count=0,verbose={compileStart|compileEnd},vlog=jit.log"
+}
