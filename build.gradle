@@ -1,0 +1,33 @@
+version '1.0.0-SNAPSHOT'
+
+def currentJvm = org.gradle.internal.jvm.Jvm.current()
+println currentJvm
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'Hello'
+        )
+    }
+}
+
+dependencies {
+}
+
+if (!project.hasProperty("native_agent")) {
+    ext.native_agent = "build/libJitFailAgent.so"
+}
+
+mainClassName = "Hello"
+applicationDefaultJvmArgs =  [
+        "-agentpath:${native_agent}",
+]
