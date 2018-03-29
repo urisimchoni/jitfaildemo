@@ -96,7 +96,7 @@ JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved)
 		printf("%s\tfailed to set event callbacks: %d\n", __FUNCTION__, error);
 	}
 
-	error = jvmti->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_OBJECT_FREE, nullptr);
+	error = jvmti->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_OBJECT_FREE, NULL);
 	if (error != JVMTI_ERROR_NONE) {
 		printf("%s\tfailed to set object free notifications: %d\n", __FUNCTION__, error);
 	}
